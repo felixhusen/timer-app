@@ -1,8 +1,8 @@
 export const environment = {
   stage: 'dev',
   production: false,
-  apiUrl: 'http://ec2-52-62-92-200.ap-southeast-2.compute.amazonaws.com',
-  wsUrl: 'ws://ec2-52-62-92-200.ap-southeast-2.compute.amazonaws.com',
+  apiUrl: 'https://d6enwyexzx5fz.cloudfront.net',
+  wsUrl: 'wss://d6enwyexzx5fz.cloudfront.net/',
   minTimerDuration: 1,
   maxTimerDuration: 100,
 };
