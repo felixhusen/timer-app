@@ -25,7 +25,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: artifacts
-        path: dist/timer-app/
+        path: dist/timer-app/browser
 
   deploy:
     name: Development to S3 and CloudFront
@@ -38,7 +38,7 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: artifacts
-        path: dist/timer-app/
+        path: dist/timer-app/browser
 
     - uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -47,7 +47,7 @@ jobs:
         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
     - name: S3 Sync
-      run: aws s3 sync dist/timer-app/ s3://${{ secrets.S3_BUCKET }}
+      run: aws s3 sync dist/timer-app/browser s3://${{ secrets.S3_BUCKET }}
 
     - name: Cloudfront Invalidation
       run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
