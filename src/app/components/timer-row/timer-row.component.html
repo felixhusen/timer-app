@@ -1,0 +1,14 @@
+<mat-card class="timer-row">
+  <mat-card-content class="card-content">
+    <!-- Timer Current Duration Display -->
+    <timer-display [duration]="timer.currentDuration"></timer-display>
+
+    <!-- Start/Pause Timer Button -->
+    <timer-button
+      [timerId]="timer.timerId"
+      [timerState]="timer.state"
+      (pauseClick)="onPauseClick($event)"
+      (startClick)="onStartClick($event)"
+    ></timer-button>
+  </mat-card-content>
+</mat-card>

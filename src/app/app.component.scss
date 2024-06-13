@@ -1,0 +1,11 @@
+.timer-app {
+  width: 100%;
+  height: 100%;
+  background: #FFD0FB;
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  timer-list {
+    width: 50vw;
+  }
+}

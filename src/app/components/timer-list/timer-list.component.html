@@ -1,0 +1,34 @@
+<div class="timer-list">
+  <div class="list-header">
+    <!-- Timer List Sort Options -->
+    <div class="sort-options">
+      <h1 class="sort-title" aria-label="Sort Title">Sort :</h1>
+      <button class="sort-button" [class]="{ active: sort === 'asc' }">
+        ASC
+      </button>
+      <button class="sort-button" [class]="{ active: sort === 'desc' }">
+        DESC
+      </button>
+    </div>
+
+    <!-- Timer Add Button -->
+    <button
+      mat-mini-fab
+      color="primary"
+      aria-label="Add Button"
+      (click)="onAddTimerClick()"
+    >
+      <mat-icon fontIcon="add"></mat-icon>
+    </button>
+  </div>
+  <div>
+    <ng-template ngFor let-timer [ngForOf]="timers" [ngForTrackBy]="trackByFn">
+      <!-- Timer Row -->
+      <timer-row
+        [timer]="timer"
+        (pauseClick)="onPauseClick($event)"
+        (startClick)="onStartClick($event)"
+      ></timer-row>
+    </ng-template>
+  </div>
+</div>

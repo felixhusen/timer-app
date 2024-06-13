@@ -1,0 +1,23 @@
+.timer-display {
+  display: flex;
+
+  .minutes,
+  .seconds {
+    background: rgb(255, 208, 251);
+    border-radius: 3px;
+    padding: 2.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      font-family: 'DINCondensed-Bold', 'DIN Condensed';
+      font-size: 28px;
+    }
+  }
+
+  .separator {
+    font-family: 'DINCondensed-Bold', 'DIN Condensed';
+    font-size: 28px;
+  }
+}
