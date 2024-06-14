@@ -2,7 +2,7 @@ export const environment = {
   stage: 'dev',
   production: false,
   apiUrl: 'https://d6enwyexzx5fz.cloudfront.net',
-  wsUrl: 'wss://d6enwyexzx5fz.cloudfront.net/',
+  wsUrl: 'ws://ec2-52-62-92-200.ap-southeast-2.compute.amazonaws.com',
   minTimerDuration: 1,
   maxTimerDuration: 100,
 };
