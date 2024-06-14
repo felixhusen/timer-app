@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
   template: `
     <mat-card class="timer-row">
       <mat-card-content class="card-content">
-        It looks like you don't have any timers yet. Please press 'Add' button
+        It looks like you don't have any timers yet. Please press '+' button
         to set one up.
       </mat-card-content>
     </mat-card>

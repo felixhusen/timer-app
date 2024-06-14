@@ -1,5 +1,6 @@
 <div class="timer-app">
   <timer-list
+    #timerListCmp
     [timers]="timers$ | async"
     [sort]="timerSortDirection$ | async"
     (addTimerClick)="onAddTimerClick()"

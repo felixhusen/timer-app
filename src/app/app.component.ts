@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TimerListComponent } from './components/timer-list/timer-list.component';
 import { WebsocketService } from './services/websocket.service';
@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
+  @ViewChild('timerListCmp') timerListCmp: TimerListComponent;
   private readonly destroy$ = new Subject<void>();
   readonly timers$ = this.timerService.timers$;
   readonly timerSortDirection$ = this.timerService.timerSortDirection$;
