@@ -5,4 +5,5 @@ export const environment = {
   wsUrl: 'ws://ec2-52-62-92-200.ap-southeast-2.compute.amazonaws.com',
   minTimerDuration: 1,
   maxTimerDuration: 100,
+  snackbarDuration: 2000,
 };

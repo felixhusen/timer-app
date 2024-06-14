@@ -24,6 +24,12 @@ export class TimerService extends StateService<TimerServiceState> {
     super(initialTimerState);
   }
 
+  removeTimer(timerId: string) {
+    this.setState({
+      timers: this.state.timers.filter((timer) => timer.timerId !== timerId),
+    });
+  }
+
   setTimerState(newTimer: Partial<ITimer>) {
     // Assign the timer object in the array to newTimer.
     const newTimers = this.state.timers.map((oldTimer) =>
@@ -35,6 +41,19 @@ export class TimerService extends StateService<TimerServiceState> {
     this.setState({
       timers: newTimers,
     });
+  }
+
+  setTimerSortDirection(sortDirection: TimerSortDirection) {
+    const timers = this.state.timers.sort((a, b) => {
+      const date1 = new Date(a.createdAt ?? '');
+      const date2 = new Date(b.createdAt ?? '');
+
+      return sortDirection === TimerSortDirection.asc
+        ? date1.getTime() - date2.getTime()
+        : date2.getTime() - date1.getTime();
+    });
+
+    this.setState({ sortDirection, timers });
   }
 
   getTimers() {

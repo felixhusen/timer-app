@@ -3,10 +3,18 @@
     <!-- Timer List Sort Options -->
     <div class="sort-options">
       <h1 class="sort-title" aria-label="Sort Title">Sort :</h1>
-      <button class="sort-button" [class]="{ active: sort === 'asc' }">
+      <button
+        class="sort-button"
+        [class]="{ active: sort === 'asc' }"
+        (click)="onSortChange(TimerSortDirection.asc)"
+      >
         ASC
       </button>
-      <button class="sort-button" [class]="{ active: sort === 'desc' }">
+      <button
+        class="sort-button"
+        [class]="{ active: sort === 'desc' }"
+        (click)="onSortChange(TimerSortDirection.desc)"
+      >
         DESC
       </button>
     </div>
@@ -18,17 +26,28 @@
       aria-label="Add Button"
       (click)="onAddTimerClick()"
     >
-    <img class="icon" src="/assets/icons/plus-solid.svg" />
+      <img class="icon" src="/assets/icons/plus-solid.svg" />
     </button>
   </div>
   <div>
-    <ng-template ngFor let-timer [ngForOf]="timers" [ngForTrackBy]="trackByFn">
-      <!-- Timer Row -->
-      <timer-row
-        [timer]="timer"
-        (pauseClick)="onPauseClick($event)"
-        (startClick)="onStartClick($event)"
-      ></timer-row>
+    <ng-container *ngIf="timers?.length; else noTimerView">
+      <ng-template
+        ngFor
+        let-timer
+        [ngForOf]="timers"
+        [ngForTrackBy]="trackByFn"
+      >
+        <!-- Timer Row -->
+        <timer-row
+          [timer]="timer"
+          (pauseClick)="onPauseClick($event)"
+          (startClick)="onStartClick($event)"
+        ></timer-row>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #noTimerView>
+      <timer-empty-row></timer-empty-row>
     </ng-template>
   </div>
 </div>

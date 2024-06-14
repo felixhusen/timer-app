@@ -48,6 +48,11 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((eventData) => {
         this.logger.info('[AppComponent] timerEvent: ', eventData);
+
+        // Remove the timer from the store if it has completed
+        if (eventData.currentDuration === 0)
+          this.timerService.removeTimer(eventData.timerId);
+
         this.timerService.setTimerState(eventData);
       });
   }
@@ -70,7 +75,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
-          this.snackBar.open('Timer paused.');
+          this.snackBar.open('Timer added.', '', {
+            duration: environment.snackbarDuration,
+          });
           this.logger.debug('[AppComponent] onAddTimerClick: ', data);
         },
         error: (err) => this.handleError(err),
@@ -83,7 +90,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          this.snackBar.open('Timer paused.');
+          this.snackBar.open('Timer paused.', '', {
+            duration: environment.snackbarDuration,
+          });
         },
         error: (err) => this.handleError(err),
       });
@@ -95,10 +104,16 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          this.snackBar.open('Timer started.');
+          this.snackBar.open('Timer started.', '', {
+            duration: environment.snackbarDuration,
+          });
         },
         error: (err) => this.handleError(err),
       });
+  }
+
+  onSortTimerChange(sortDirection: TimerSortDirection) {
+    this.timerService.setTimerSortDirection(sortDirection);
   }
 
   handleError(err: Error) {
