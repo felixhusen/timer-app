@@ -9,10 +9,24 @@ import { NGXLogger } from 'ngx-logger';
   standalone: true,
   imports: [MatButtonModule, NgIf],
   template: `
-    <button mat-button *ngIf="timerState === TimerState.ongoing" (click)="onPauseClick()">pause</button>
-    <button mat-button *ngIf="timerState === TimerState.paused" (click)="onStartClick()">start</button>
+    <button
+      class="action-button"
+      mat-icon-button
+      *ngIf="timerState === TimerState.ongoing"
+      (click)="onPauseClick()"
+    >
+      <img class="icon" src="/assets/icons/pause-fill.svg" />
+    </button>
+    <button
+      class="action-button"
+      mat-icon-button
+      *ngIf="timerState === TimerState.paused"
+      (click)="onStartClick()"
+    >
+      <img class="icon" src="/assets/icons/play-fill.svg" />
+    </button>
   `,
-  styleUrl: './timer-button.component.scss'
+  styleUrl: './timer-button.component.scss',
 })
 export class TimerButtonComponent {
   @Input() timerId: string;
@@ -24,12 +38,18 @@ export class TimerButtonComponent {
   constructor(private logger: NGXLogger) {}
 
   onPauseClick() {
-    this.logger.debug('[TimerButtonComponent] pause button clicked: ', this.timerId);
+    this.logger.debug(
+      '[TimerButtonComponent] pause button clicked: ',
+      this.timerId
+    );
     this.pauseClick.emit(this.timerId);
   }
 
   onStartClick() {
-    this.logger.debug('[TimerButtonComponent] start button clicked: ', this.timerId);
+    this.logger.debug(
+      '[TimerButtonComponent] start button clicked: ',
+      this.timerId
+    );
     this.startClick.emit(this.timerId);
   }
 }

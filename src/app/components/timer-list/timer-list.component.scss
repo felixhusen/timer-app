@@ -3,6 +3,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0 0.5rem;
+
+    .add-button {
+      background: #A52BB7;
+      border-radius: 7px;
+      width: 33px;
+      height: 33px;
+      box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    }
 
     .sort-options {
       display: flex;
@@ -13,6 +23,7 @@
         font-size: 28px;
         line-height: 28px;
         margin: 0;
+        margin-right: 0.5rem;
       }
 
       .sort-button {
@@ -23,6 +34,7 @@
         font-size: 28px;
         line-height: 28px;
         color: #A52BB7;
+        margin-right: 0.5rem;
       }
       .sort-button.active {
         opacity: 0.4;

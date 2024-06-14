@@ -1,6 +1,12 @@
 .timer-row {
+  margin-bottom: 0.5rem;
   .card-content {
     display: flex;
     justify-content: space-between;
+
+    timer-display {
+      display: flex;
+      align-items: center;
+    }
   }
 }

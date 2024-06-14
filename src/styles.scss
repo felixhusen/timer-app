@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  .action-button {
+    background: #a52bb7;
+    border-radius: 7px;
+    width: 33px;
+    height: 33px;
+    box-shadow: var(--mdc-elevated-card-container-elevation);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img.icon {
+      filter: invert(1);
+    }
+  }
+}
