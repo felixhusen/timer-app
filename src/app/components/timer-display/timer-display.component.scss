@@ -5,19 +5,22 @@
   .seconds {
     background: rgb(255, 208, 251);
     border-radius: 3px;
-    padding: 2.5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     span {
-      font-family: 'DINCondensed-Bold', 'DIN Condensed';
+      font-family: 'DIN Condensed';
       font-size: 28px;
     }
   }
 
   .separator {
-    font-family: 'DINCondensed-Bold', 'DIN Condensed';
+    font-family: 'DIN Condensed';
     font-size: 28px;
+    padding-top: 3px;
   }
 }

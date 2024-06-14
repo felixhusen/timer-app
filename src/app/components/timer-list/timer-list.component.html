@@ -42,12 +42,13 @@
           [timer]="timer"
           (pauseClick)="onPauseClick($event)"
           (startClick)="onStartClick($event)"
+          (deleteClick)="onDeleteClick($event)"
         ></timer-row>
       </ng-template>
     </ng-container>
 
     <ng-template #noTimerView>
-      <timer-empty-row></timer-empty-row>
+      <timer-empty-row *ngIf="timers"></timer-empty-row>
     </ng-template>
   </div>
 </div>

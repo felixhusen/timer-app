@@ -13,8 +13,10 @@ import { ITimer } from '../../services/typings';
 })
 export class TimerRowComponent {
   @Input() timer: ITimer;
+
   @Output() pauseClick: EventEmitter<string> = new EventEmitter();
   @Output() startClick: EventEmitter<string> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<string> = new EventEmitter();
 
   onPauseClick(timerId: string) {
     this.pauseClick.emit(timerId);
@@ -22,5 +24,9 @@ export class TimerRowComponent {
 
   onStartClick(timerId: string) {
     this.startClick.emit(timerId);
+  }
+
+  onDeleteClick(timerId: string) {
+    this.deleteClick.emit(timerId);
   }
 }

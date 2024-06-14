@@ -1,0 +1,7 @@
+.action-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  .action-button:last-child {
+    margin-left: 0.5rem;
+  }
+}

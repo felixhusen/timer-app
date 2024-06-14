@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { ITimer, TimerSortDirection, TimerState } from './typings';
 import { StateService } from './state.service';
-import { tap, timer } from 'rxjs';
+import { tap } from 'rxjs';
 
 export interface TimerServiceState {
-  timers: ITimer[];
+  timers: ITimer[] | null;
   sortDirection: TimerSortDirection;
 }
 
 const initialTimerState: TimerServiceState = {
-  timers: [],
+  timers: null,
   sortDirection: TimerSortDirection.asc,
 };
 
@@ -26,13 +26,13 @@ export class TimerService extends StateService<TimerServiceState> {
 
   removeTimer(timerId: string) {
     this.setState({
-      timers: this.state.timers.filter((timer) => timer.timerId !== timerId),
+      timers: this.state.timers?.filter((timer) => timer.timerId !== timerId),
     });
   }
 
   setTimerState(newTimer: Partial<ITimer>) {
     // Assign the timer object in the array to newTimer.
-    const newTimers = this.state.timers.map((oldTimer) =>
+    const newTimers = this.state.timers?.map((oldTimer) =>
       oldTimer.timerId === newTimer.timerId
         ? { ...oldTimer, ...newTimer }
         : oldTimer
@@ -44,9 +44,10 @@ export class TimerService extends StateService<TimerServiceState> {
   }
 
   setTimerSortDirection(sortDirection: TimerSortDirection) {
-    const timers = this.state.timers.sort((a, b) => {
-      const date1 = new Date(a.createdAt ?? '');
-      const date2 = new Date(b.createdAt ?? '');
+    // Sort Timer by the createdAt date
+    const timers = this.state.timers?.sort((a, b) => {
+      const date1 = new Date(a.createdAt);
+      const date2 = new Date(b.createdAt);
 
       return sortDirection === TimerSortDirection.asc
         ? date1.getTime() - date2.getTime()
@@ -67,7 +68,14 @@ export class TimerService extends StateService<TimerServiceState> {
   addTimer(duration: number) {
     return this.api.addTimer(duration).pipe(
       tap((res) => {
-        this.setState({ timers: [...this.state.timers, res.data] });
+        // Add the new timer to the timers arr
+        const oldTimers = this.state.timers ?? [];
+        const newTimers =
+          this.state.sortDirection === TimerSortDirection.asc
+            ? [...oldTimers, res.data]
+            : [res.data, ...oldTimers];
+  
+        this.setState({ timers: newTimers });
       })
     );
   }
@@ -89,6 +97,18 @@ export class TimerService extends StateService<TimerServiceState> {
         this.setTimerState({
           timerId: res.data.timerId,
           state: TimerState.ongoing,
+        });
+      })
+    );
+  }
+
+  deleteTimer(timerId: string) {
+    return this.api.deleteTimer(timerId).pipe(
+      tap((_) => {
+        this.setState({
+          timers: this.state.timers?.filter(
+            (timer) => timer.timerId !== timerId
+          ),
         });
       })
     );

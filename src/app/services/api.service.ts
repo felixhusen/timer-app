@@ -31,6 +31,13 @@ export class ApiService {
     }>(this.apiUrl + '/timer/pause', { timerId });
   }
 
+  deleteTimer(timerId: string) {
+    return this.http.post<{
+      success: boolean;
+      data: { timerId: string };
+    }>(this.apiUrl + '/timer/delete', { timerId });
+  }
+
   getTimers() {
     return this.http.get<{
       success: boolean;

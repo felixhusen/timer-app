@@ -43,11 +43,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   initWebsocket() {
+    // Listen to the timerEvent
     this.wsService
       .timerEvent()
       .pipe(takeUntil(this.destroy$))
       .subscribe((eventData) => {
-        this.logger.info('[AppComponent] timerEvent: ', eventData);
+        // this.logger.info('[AppComponent] timerEvent: ', eventData);
 
         // Remove the timer from the store if it has completed
         if (eventData.currentDuration === 0)
@@ -112,11 +113,27 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
+  onDeleteTimerClick(timerId: string) {
+    this.timerService
+      .deleteTimer(timerId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.snackBar.open('Timer deleted.', '', {
+            duration: environment.snackbarDuration,
+          });
+        },
+        error: (err) => this.handleError(err),
+      });
+  }
+
   onSortTimerChange(sortDirection: TimerSortDirection) {
     this.timerService.setTimerSortDirection(sortDirection);
   }
 
   handleError(err: Error) {
-    this.snackBar.open('Error: ' + err.message);
+    this.snackBar.open('Error: ' + err.message, '', {
+      duration: environment.snackbarDuration,
+    });
   }
 }

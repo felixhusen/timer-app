@@ -15,5 +15,5 @@ export interface ITimer {
   originalDuration: number;
   /** @description Current timer duration (in seconds) */
   currentDuration: number;
-  createdAt?: string;
+  createdAt: string;
 }

@@ -26,6 +26,7 @@ export class TimerListComponent {
 
   @Output() pauseClick: EventEmitter<string> = new EventEmitter();
   @Output() startClick: EventEmitter<string> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<string> = new EventEmitter();
   @Output() addTimerClick: EventEmitter<void> = new EventEmitter();
   @Output() sortChange: EventEmitter<TimerSortDirection> = new EventEmitter();
 
@@ -45,6 +46,10 @@ export class TimerListComponent {
 
   onSortChange(sortDirection: TimerSortDirection) {
     this.sortChange.emit(sortDirection);
+  }
+
+  onDeleteClick(timerId: string) {
+    this.deleteClick.emit(timerId);
   }
 
   trackByFn(index: number, timer: ITimer) {

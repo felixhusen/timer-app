@@ -9,30 +9,50 @@ import { NGXLogger } from 'ngx-logger';
   standalone: true,
   imports: [MatButtonModule, NgIf],
   template: `
-    <button
-      class="action-button"
-      mat-icon-button
-      *ngIf="timerState === TimerState.ongoing"
-      (click)="onPauseClick()"
-    >
-      <img class="icon" src="/assets/icons/pause-fill.svg" />
-    </button>
-    <button
-      class="action-button"
-      mat-icon-button
-      *ngIf="timerState === TimerState.paused"
-      (click)="onStartClick()"
-    >
-      <img class="icon" src="/assets/icons/play-fill.svg" />
-    </button>
+    <div class="action-buttons-wrapper">
+      <!-- Pause Button -->
+      <button
+        class="action-button"
+        mat-icon-button
+        aria-label="Pause Button"
+        *ngIf="timerState === TimerState.ongoing"
+        (click)="onPauseClick()"
+      >
+        <img class="icon" src="/assets/icons/pause-fill.svg" />
+      </button>
+
+      <!-- Start Button -->
+      <button
+        class="action-button"
+        mat-icon-button
+        aria-label="Start Button"
+        *ngIf="timerState === TimerState.paused"
+        (click)="onStartClick()"
+      >
+        <img class="icon" src="/assets/icons/play-fill.svg" />
+      </button>
+
+      <!-- Delete Button -->
+      <button
+        class="action-button"
+        mat-icon-button
+        aria-label="Delete Button"
+        (click)="onDeleteClick()"
+      >
+        <img class="icon" src="/assets/icons/xmark-solid.svg" />
+      </button>
+    </div>
   `,
   styleUrl: './timer-button.component.scss',
 })
 export class TimerButtonComponent {
   @Input() timerId: string;
   @Input() timerState: TimerState;
+
   @Output() pauseClick: EventEmitter<string> = new EventEmitter();
   @Output() startClick: EventEmitter<string> = new EventEmitter();
+  @Output() deleteClick: EventEmitter<string> = new EventEmitter();
+
   TimerState = TimerState;
 
   constructor(private logger: NGXLogger) {}
@@ -51,5 +71,13 @@ export class TimerButtonComponent {
       this.timerId
     );
     this.startClick.emit(this.timerId);
+  }
+
+  onDeleteClick() {
+    this.logger.debug(
+      '[TimerButtonComponent] delete button clicked: ',
+      this.timerId
+    );
+    this.deleteClick.emit(this.timerId);
   }
 }
